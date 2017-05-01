@@ -12,6 +12,7 @@ execute pathogen#infect()
 " https://github.com/scrooloose/nerdtree.git
 " https://github.com/vim-airline/vim-airline.git
 " https://github.com/tpope/vim-commentary.git
+" https://github.com/christoomey/vim-tmux-navigator
 
 " filetype handling
 filetype off
