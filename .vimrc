@@ -19,14 +19,13 @@ filetype plugin indent on
 
 """ UI Improvements
 "" Colors
-" Colors are a real mess within iterm2 with solarized...
-" Keeping some of these strategies around for posterity
-" set termguicolors
-" set background=light
-" let g:solarized_termcolors=256
-" colorscheme solarized8_light_high
+" Colors can be a real mess. The following is not well understood by the
+" author. What I know is that this overrides some defaults and allows
+" solarized to look like, well, solarized, regardless of $SHELL.
 set t_8f=[38;2;%lu;%lu;%lum
 set t_8b=[48;2;%lu;%lu;%lum
+
+" solarized colorscheme
 colorscheme solarized " https://github.com/altercation/vim-colors-solarized
 syntax enable
 
@@ -131,8 +130,34 @@ function! TogglePaste()
 endfunction
 noremap <leader>c :call TogglePaste()<cr>
 
+function! ToggleNumber()
+  if(&relativenumber == 1)
+    set relativenumber!
+    set number
+  else
+    set number!
+    set relativenumber
+  endif
+endfunc
+nnoremap <leader>n :call ToggleNumber()<cr>
+
+" vimwiki configuration: no effect when vimwiki is not present
+let wiki_1 = {}
+let wiki_1.syntax = 'markdown'
+let g:vimwiki_list = [{"syntax": "markdown", "path": "/Users/mburling/vimwiki", "path_html": "/Users/mburling/vimwiki_html", "ext": ".md", "css_file": "/Users/mburling/vimwiki_html/style.css", "custom_wiki2html": "/Users/mburling/scripts/vimwiki.sh"}]
 " enable pasting in macOS sometimes...
-set clipboard=unnamed
+
+" crontab manipulation -- is this specific to macOS Sierra?
+if $VIM_CRONTAB == "true"
+    set nobackup
+    set nowritebackup
+endif
+
+" Uncomment if you need to have macOS Sierra share the clipboard with vim...
+" set clipboard=unnamed
 
 " Hack to get vim-airline to work out right away
 set laststatus=2
+
+" Experimental Changes...
+set invcursorcolumn
