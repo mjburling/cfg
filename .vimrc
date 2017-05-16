@@ -63,7 +63,7 @@ call matchadd('MaximumDocString', '\%73v')
 "" Pep-8 Standards
 " https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
 " https://www.python.org/dev/peps/pep-0008/#maximum-line-length
-autocmd FileType python setlocal timeoutlen=1000 ttimeoutlen=0 shiftwidth=4 tabstop=4 softtabstop=4 colorcolumn=80 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
+autocmd FileType python setlocal timeoutlen=1000 ttimeoutlen=0 expandtab shiftwidth=4 tabstop=4 softtabstop=4 colorcolumn=80 smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 
 "" Puppet
 autocmd FileType pp set filetype=puppet
@@ -73,6 +73,8 @@ autocmd FileType javascript setlocal colorcolumn=100 timeoutlen=1000 ttimeoutlen
 
 "" html and web standards...
 autocmd FileType html,json,yaml,markdown setlocal timeoutlen=1000 ttimeoutlen=0 shiftwidth=2 tabstop=2 softtabstop=2
+
+autocmd FileType vimwiki,*.html.md setlocal timeoutlen=1000 ttimeoutlen=0 shiftwidth=2 tabstop=2 softtabstop=2 cmdheight=2 commentstring=<!--%s-->
 
 " Mistakes are made
 map q: :q
@@ -129,7 +131,19 @@ function! TogglePaste()
         set paste
     endif
 endfunction
-noremap <leader>c :call TogglePaste()<cr>
+noremap <leader>p :call TogglePaste()<cr>
+
+" Use with iTerm2 and macOS Sierra clipboard (pasteboard) integration
+function! ToggleClipboard()
+  if(&clipboard == "unnamed")
+    echom "clipboard="
+    set clipboard=
+  else
+    echom "clipboard=unnamed"
+    set clipboard=unnamed
+  endif
+endfunction
+noremap <leader>c :call ToggleClipboard()<cr>
 
 function! ToggleNumber()
   if(&relativenumber == 1)
@@ -144,9 +158,17 @@ nnoremap <leader>n :call ToggleNumber()<cr>
 
 " vimwiki configuration: no effect when vimwiki is not present
 let wiki_1 = {}
+let wiki_1.path = '~/vimwiki'
+let wiki_1.path_html = '~/vimwiki_html'
+let wiki_1.index = "index.html"
 let wiki_1.syntax = 'markdown'
-let g:vimwiki_list = [{"syntax": "markdown", "path": "/Users/mburling/vimwiki", "path_html": "/Users/mburling/vimwiki_html", "ext": ".md", "css_file": "/Users/mburling/vimwiki_html/style.css", "custom_wiki2html": "/Users/mburling/scripts/vimwiki.sh"}]
-" enable pasting in macOS sometimes...
+let wiki_1.ext = '.md'
+let wiki_1.css_file = '~/vimwiki_html/style.css'
+let wiki_1.custom_wiki2html = '~/scripts/vimwiki.sh'
+let wiki_1.auto_export = 1
+let wiki_1.nested_syntaxes = {'python': 'python', 'bash': 'bash'}
+let g:vimwiki_list = [wiki_1]
+
 
 " crontab manipulation -- is this specific to macOS Sierra?
 if $VIM_CRONTAB == "true"
@@ -154,11 +176,13 @@ if $VIM_CRONTAB == "true"
     set nowritebackup
 endif
 
-" Uncomment if you need to have macOS Sierra share the clipboard with vim...
-" set clipboard=unnamed
-
 " Hack to get vim-airline to work out right away
 set laststatus=2
 
 " Experimental Changes...
 set invcursorcolumn
+
+" Timestamps
+nnoremap <F5> "=strftime("%a %d %b %Y")<CR>P
+inoremap <F5> <C-R>=strftime("%a %d %b %Y")<CR>
+
