@@ -11,9 +11,10 @@ The method to the madness is through employing [git bare repositories](https://d
 ### Getting Started
 __Be sure to move or rename .vimrc, .tmux.conf, and .zshrc out of the home directory before getting started__
 ```
-cd $HOME
-git clone --bare git://git.redbrickhealth.net/mburling/cfg .cfg
+git clone --bare git://git.redbrickhealth.net/mburling/cfg $HOME/.cfg
 alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
+config checkout
+config config status.showUntrackedFiles no
 # the following line is only necessary if using a .bashrc/.zshrc other than the one
 # provided here
 echo "alias config='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'" >> $HOME/.bashrc
