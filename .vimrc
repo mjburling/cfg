@@ -49,9 +49,10 @@ set magic " so far, really like magic...
 
 """ UX Basics
 "" Tabs
-set expandtab
 set tabstop=2
 set shiftwidth=2
+set softtabstop=2
+set expandtab
 
 "" Highlighting
 highlight WhitespaceEOL ctermbg=red guibg=red
