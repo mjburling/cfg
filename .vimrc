@@ -61,6 +61,9 @@ match WhitespaceEOL /\s\+$/
 highlight MaximumDocString ctermbg=lightred guibg=lightred
 call matchadd('MaximumDocString', '\%73v')
 
+noremap <leader>h :noh <cr>
+
+
 "" Pep-8 Standards
 " https://www.python.org/dev/peps/pep-0008/#tabs-or-spaces
 " https://www.python.org/dev/peps/pep-0008/#maximum-line-length
@@ -81,6 +84,7 @@ autocmd FileType vimwiki,*.html.md setlocal timeoutlen=1000 ttimeoutlen=0 shiftw
 map q: :q
 :command Q q
 :command W w
+:command E e
 
 " Especially good while getting used to the Kinesis Advantage
 map c <Nop> " What is this key even for?
