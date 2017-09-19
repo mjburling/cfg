@@ -56,11 +56,11 @@ HISTFILE=~/.zsh_history
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
 
-source ~/.zsh-extras/zsh-histdb/sqlite-history.zsh
-source ~/.zsh-extras/zsh-histdb/history-timer.zsh
-autoload -Uz add-zsh-hook
-add-zsh-hook preexec _start_timer
-add-zsh-hook precmd  _stop_timer
+# source ~/.zsh-extras/zsh-histdb/sqlite-history.zsh
+# source ~/.zsh-extras/zsh-histdb/history-timer.zsh
+# autoload -Uz add-zsh-hook
+# add-zsh-hook preexec _start_timer
+# add-zsh-hook precmd  _stop_timer
 source $ZSH/oh-my-zsh.sh
 
 
@@ -121,4 +121,4 @@ alias tffreshplan='terraform plan -out=.tfplan'
 alias tfapply='terraform apply .tfplan; rm .tfplan'
 
 alias evim='eyaml edit -n gpg'
-alias vi='vim -O'
+alias vim='vim -O'

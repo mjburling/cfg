@@ -117,11 +117,11 @@ nnoremap <silent> N N:call HLNext(0.15)<cr>
 " Spelling. Y'know, for documentation and stuff.
 function! ToggleSpelling()
     if &spell
-        echom "<( ^ _ ^ )> Spell it however you'd like!"
         set nospell
+        echom "<( ^ _ ^ )> Spell it however you'd like!"
     else
-        echom "<( o . o )> Spell it right!"
         set spell spelllang=en_us
+        echom "<( o . o )> Spell it right!"
     endif
 endfunction
 noremap <leader>s :call ToggleSpelling()<cr>
@@ -129,11 +129,13 @@ noremap <leader>s :call ToggleSpelling()<cr>
 " Pasting function because pasting in macOS is hard
 function! TogglePaste()
     if &paste
-        echom "<( o . o )> Stop Pasting!"
         set nopaste
+        echom "<( o . o )> Stop Pasting!"
     else
-        echom "<( ^ _ ^ )> Paste Away!"
         set paste
+        echom "<( ^ _ ^ )> Paste Away!"
+        exec 'sleep 500m'
+        startinsert
     endif
 endfunction
 noremap <leader>p :call TogglePaste()<cr>
@@ -174,6 +176,9 @@ let wiki_1.auto_export = 1
 let wiki_1.nested_syntaxes = {'python': 'python', 'bash': 'bash'}
 let g:vimwiki_list = [wiki_1]
 
+" Some jsx nonsense
+let g:jsx_ext_required = 0
+
 
 " crontab manipulation -- is this specific to macOS Sierra?
 if $VIM_CRONTAB == "true"
@@ -190,4 +195,3 @@ set invcursorcolumn
 " Timestamps
 nnoremap <F5> "=strftime("%a %d %b %Y")<CR>P
 inoremap <F5> <C-R>=strftime("%a %d %b %Y")<CR>
-
