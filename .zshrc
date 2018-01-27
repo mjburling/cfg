@@ -1,5 +1,5 @@
 # If you come from bash you might have to change your $PATH.
-export PATH=$HOME/Library/Python/2.7/bin:$HOME/bin:/usr/local/bin:/opt/puppetlabs/bin/:$PATH
+export PATH=$HOME/Library/Python/2.7/bin:$HOME/bin:/usr/local/bin:/opt/puppetlabs/bin/:/opt/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
@@ -7,7 +7,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="honukai"
+ZSH_THEME="honukai/honukai"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -95,30 +95,39 @@ set -o vi
 # adding additional path completions for zsh
 fpath=(/usr/local/share/zsh-completions $fpath)
 
-# macOS misgivings in crontab contexts
 export EDITOR=vim
-alias crontab="VIM_CRONTAB=true crontab"
 
 # convenience!
-alias hopslam="ssh 172.22.0.66"
-alias devhop="ssh 172.22.2.176"
-alias imphop="ssh 172.22.15.10"
-alias toolshop="ssh 172.22.3.137"
-alias ohsnap="ssh 172.23.16.34"
 alias config="/usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME"
-alias dev='cd $HOME/dev/'
-alias galaxy=ansible-galaxy
-export PATH=/usr/local/sbin:$PATH
-bindkey -v
+alias vim='vim -O'
 bindkey '^R' history-incremental-search-backward
-alias os-dev="source ~/.openrc/devqa-openrc.sh"
-alias os-prod="source ~/.openrc/prodops_stp1"
-alias os-tech="source ~/.openrc/techops-openrc.sh"
-alias os-tools="source ~/.openrc/tools_admin"
+bindkey -v
 
+# Operations
 alias tfplan='terraform plan -out=.tfplan -refresh=false'
 alias tffreshplan='terraform plan -out=.tfplan'
 alias tfapply='terraform apply .tfplan; rm .tfplan'
-
 alias evim='eyaml edit -n gpg'
-alias vim='vim -O'
+alias galaxy=ansible-galaxy
+
+# macOS misgivings in crontab contexts
+if [[ $(uname) == 'Darwin' ]]; then
+  alias crontab="VIM_CRONTAB=true crontab"
+  export PATH=/usr/local/sbin:$PATH
+fi
+
+# work-specific stuff
+if [[ $(hostname) == 'RBH12228' ]]; then
+  alias hopslam="ssh mburling@172.22.0.66"
+  alias devhop="ssh mburling@172.22.2.176"
+  alias imphop="ssh mburling@172.22.15.10"
+  alias toolshop="ssh 172.22.3.137"
+  alias dev='cd $HOME/dev/'
+  alias os-dev="source ~/.openrc/devqa-openrc.sh"
+  alias os-prod="source ~/.openrc/prodops_stp1"
+  alias os-tech="source ~/.openrc/techops-openrc.sh"
+  alias os-tools="source ~/.openrc/tools_admin"
+fi
+
+# historical alacritty nonsense
+# alias restart="ps aux | grep alacritty | awk '{ print $1 }' | xargs echo"

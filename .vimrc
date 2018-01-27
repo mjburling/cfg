@@ -87,7 +87,7 @@ map q: :q
 :command E e
 
 " Especially good while getting used to the Kinesis Advantage
-map c <Nop> " What is this key even for?
+map c <Nop>
 map C <Nop>
 
 " Later remapped to Capslock in macOS Sierra, so whatever.
@@ -140,6 +140,7 @@ function! TogglePaste()
 endfunction
 noremap <leader>p :call TogglePaste()<cr>
 
+set clipboard=unnamed
 " Use with iTerm2 and macOS Sierra clipboard (pasteboard) integration
 function! ToggleClipboard()
   if(&clipboard == "unnamed")
@@ -191,6 +192,7 @@ set laststatus=2
 
 " Experimental Changes...
 set invcursorcolumn
+set invcursorline
 
 " Timestamps
 nnoremap <F5> "=strftime("%a %d %b %Y")<CR>P
