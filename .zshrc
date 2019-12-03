@@ -131,3 +131,4 @@ fi
 
 # historical alacritty nonsense
 # alias restart="ps aux | grep alacritty | awk '{ print $1 }' | xargs echo"
+#Another worthless edit
